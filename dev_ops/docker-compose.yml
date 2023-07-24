@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    hostname: db-postgres
+
+    volumes:
+      - db-postgres-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: postgres-db
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+
+    ports:
+      - 127.0.0.1:4040:5432
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+      -
+volumes:
+  db-postgres-data:

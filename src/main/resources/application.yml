@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: fintech
+  datasource:
+    url: jdbc:postgresql://localhost:4040/fintech_db
+    password: test
+    username: test
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+server:
+  port: 8181
