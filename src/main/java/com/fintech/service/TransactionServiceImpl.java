@@ -1,12 +1,12 @@
 package com.fintech.service;
 
 import com.fintech.contract.AccountValidationRule;
-import com.fintech.contract.ITransaction;
+import com.fintech.contract.Transaction;
 import com.fintech.contract.ValidationRule;
 import com.fintech.domain.Account;
 import com.fintech.dto.TransactionRequestDto;
 import com.fintech.dto.TransactionResponseDto;
-import com.fintech.repository.AccountMapper;
+import com.fintech.repository.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -20,7 +20,7 @@ import static com.fintech.util.ValidateTransaction.isCreditorAndDebtorDifferent;
 
 @Service
 @RequiredArgsConstructor
-public class TransactionServiceImpl implements ITransaction {
+public class TransactionServiceImpl implements Transaction {
 
     private final AccountMapper accountMapper;
 

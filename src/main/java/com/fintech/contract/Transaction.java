@@ -5,6 +5,6 @@ import com.fintech.dto.TransactionResponseDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface ITransaction {
+public interface Transaction {
     TransactionResponseDto processTransaction(TransactionRequestDto transactionRequestDto);
 }

@@ -1,4 +1,4 @@
-package com.fintech.repository;
+package com.fintech.repository.mapper;
 
 import com.fintech.domain.Transaction;
 import org.apache.ibatis.annotations.Mapper;

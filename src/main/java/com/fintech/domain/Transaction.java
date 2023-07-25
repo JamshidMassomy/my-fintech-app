@@ -2,7 +2,6 @@ package com.fintech.domain;
 
 import lombok.*;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -14,26 +13,14 @@ import java.time.LocalDateTime;
 @Getter
 public class Transaction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
-    TransactionStatus status;
-
-    @Column(name = "from_iban", nullable = false)
-    private String fromIBAN;
-
-    @Column(name = "to_iban", nullable = false)
-    private String toIBAN;
-
-    @Column(name = "amount")
+    private TransactionStatus status;
+    private Currency currency;
+    private String creditorIBAN;
+    private String debtorIBAN;
     private BigDecimal amount;
-
     private LocalDateTime dateTime;
-
     private String description;
     private String reference;
-
 
 }

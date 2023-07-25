@@ -3,6 +3,16 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
-<!--    <include file="/db/changelog/db.create_tables.xml"/>-->
-    <!--    <include file="/db/changelog/db.create_transaction_table.xml"/>-->
+
+    <changeSet id="1" author="jamshid">
+        <sql>
+            CREATE TABLE balance_audit (
+               id SERIAL PRIMARY KEY,
+               account_number VARCHAR(255),
+               balance DOUBLE PRECISION,
+               action VARCHAR(20),
+               timestamp TIMESTAMP
+            );
+        </sql>
+    </changeSet>
 </databaseChangeLog>

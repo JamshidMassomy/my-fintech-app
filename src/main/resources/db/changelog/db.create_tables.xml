@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="1" author="jamshid">
+        <sql>
+            CREATE TYPE currency AS ENUM ('USD', 'EURO', 'BGP');
+            CREATE TABLE accounts (
+              id SERIAL PRIMARY KEY,
+              iban VARCHAR(50) UNIQUE NOT NULL,
+              account_name VARCHAR(100) NOT NULL,
+              balance NUMERIC(10, 2) NOT NULL,
+              currency currency NOT NULL
+            );
+            CREATE TABLE transactions (
+              id SERIAL PRIMARY KEY,
+              status VARCHAR(50) NOT NULL,
+              currency currency NOT NULL,
+              creditor_iban VARCHAR(50) NOT NULL,
+              debtor_iban VARCHAR(50) NOT NULL,
+              amount NUMERIC(10, 2) NOT NULL,
+              date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+              description TEXT,
+              reference VARCHAR(50)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

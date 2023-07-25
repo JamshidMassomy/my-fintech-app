@@ -1,16 +1,21 @@
-<mapper namespace="com.example.library.mapper.AccountMapper">
+<mapper namespace="com.fintech.repository.mapper.AccountMapper">
 
-    <!-- Method to find an account by IBAN -->
+    <resultMap id="accountResultMap" type="Account">
+        <id property="id" column="id"/>
+        <result property="accountName" column="account_name"/>
+        <result property="IBAN" column="iban"/>
+        <result property="balance" column="balance"/>
+        <result property="currency" column="currency"/>
+    </resultMap>
+
     <select id="findByIBAN" resultType="Account">
         SELECT * FROM accounts WHERE IBAN = #{IBAN}
     </select>
 
-    <!-- Method to update the account's balance by IBAN -->
     <update id="updateAccount">
         UPDATE accounts SET balance = #{amount} WHERE IBAN = #{IBAN}
     </update>
 
-    <!-- Method to fetch the account's balance by IBAN -->
     <select id="fetchBalance" resultType="java.math.BigDecimal">
         SELECT balance FROM accounts WHERE IBAN = #{IBAN}
     </select>
