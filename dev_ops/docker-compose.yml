@@ -23,6 +23,22 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-      -
+
+  my-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-app
+    depends_on:
+      - postgres
+    ports:
+      - "8181:8181"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres-db
+      SPRING_DATASOURCE_USERNAME: your_username
+      SPRING_DATASOURCE_PASSWORD: your_password
+    volumes:
+      - ./db/changelog:/db/changelog
+
 volumes:
   db-postgres-data:

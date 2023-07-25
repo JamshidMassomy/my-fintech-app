@@ -2,7 +2,7 @@ spring:
   application:
     name: fintech
   datasource:
-    url: jdbc:postgresql://localhost:4040/fintech_db
+    url: jdbc:postgresql://localhost:4040/postgres-db
     password: test
     username: test
   liquibase:
