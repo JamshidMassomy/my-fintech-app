@@ -16,7 +16,3 @@ mybatis:
     map-underscore-to-camel-case: true
     default-statement-timeout: 3000
     use-generated-keys: true
-
-logging:
-  level:
-    root: debug
