@@ -78,7 +78,7 @@ public class TransactionServiceImpl implements Transaction {
             throw new AccountNotFoundException(NO_MATCHING_ACCOUNT);
         }
         final BigDecimal amount = transactionRequestDto.getAmount();
-        final List<ValidationRule> validationRules = Arrays.asList(
+        final List<ValidationRule> validationRules = List.of(
                 isAmountGreaterThanZero()
         );
         boolean isAmountValid = validationRules.stream()
