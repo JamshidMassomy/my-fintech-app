@@ -6,11 +6,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"id", "status", "fromIBAN", "toIBAN"})
+@RequiredArgsConstructor
+@ToString(of = {"id", "status", "debtorIBAN", "creditorIBAN"})
 @EqualsAndHashCode(of = {"id"})
 @Getter
+@Setter
 public class Transaction {
 
     private Long id;
@@ -22,5 +23,6 @@ public class Transaction {
     private LocalDateTime dateTime;
     private String description;
     private String reference;
+    private String createdSessionId;
 
 }

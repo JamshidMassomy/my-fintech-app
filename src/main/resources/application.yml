@@ -10,3 +10,13 @@ spring:
     change-log: classpath:/db/changelog/db.changelog-master.xml
 server:
   port: 8181
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-statement-timeout: 3000
+    use-generated-keys: true
+
+logging:
+  level:
+    root: debug

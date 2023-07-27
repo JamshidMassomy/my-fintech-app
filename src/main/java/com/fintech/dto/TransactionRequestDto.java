@@ -1,8 +1,8 @@
 package com.fintech.dto;
 
+import com.fintech.domain.Currency;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -20,11 +20,12 @@ public class TransactionRequestDto {
     @Positive(message = "Transaction amount must be positive or greater then zero (0) ")
     private BigDecimal amount;
 
-//    @NotBlank(message = "Currency must not be blank")
-//    private Currency currency;
+    private Currency currency;
 
+    @NotBlank(message = "description must not be blank")
     private String description;
 
+    @NotBlank(message = "reference must not be blank")
     private String reference;
 
 }

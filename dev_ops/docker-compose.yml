@@ -1,44 +1,36 @@
-version: '3.3'
+version: '3.8'
 
 services:
-  db:
+  postgres-db:
     image: postgres:latest
-    container_name: postgres
+    container_name: postgres-db
     hostname: db-postgres
-
     volumes:
       - db-postgres-data:/var/lib/postgresql/data/
     environment:
       POSTGRES_DB: postgres-db
       POSTGRES_USER: test
       POSTGRES_PASSWORD: test
-
     ports:
-      - 127.0.0.1:4040:5432
-
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    hostname: rabbitmq
-    ports:
-      - 5672:5672
-      - 15672:15672
+      - '4141:5432'
+    command: -p 4141
 
   my-app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: my-app
+    container_name: my-fintech-app
     depends_on:
-      - postgres
+      - postgres-db
     ports:
-      - "8181:8181"
+      - '8282:8181'
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres-db
-      SPRING_DATASOURCE_USERNAME: your_username
-      SPRING_DATASOURCE_PASSWORD: your_password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:4141/postgres-db
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
     volumes:
       - ./db/changelog:/db/changelog
+
 
 volumes:
   db-postgres-data:

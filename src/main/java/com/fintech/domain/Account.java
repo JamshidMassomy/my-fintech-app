@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(of = {"id"})
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
 
     private Long id;

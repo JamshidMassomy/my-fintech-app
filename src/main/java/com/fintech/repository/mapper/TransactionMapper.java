@@ -1,10 +1,13 @@
 package com.fintech.repository.mapper;
 
 import com.fintech.domain.Transaction;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface TransactionMapper {
-    Transaction saveTransaction(@Param("transaction") Transaction transaction);
+
+    @Insert("INSERT INTO transactions (status, currency, creditor_iban, debtor_iban, amount, date_time, description, reference, created_session_id )\n" +
+            "VALUES (#{status}, #{currency}, #{creditorIBAN}, #{debtorIBAN}, #{amount}, #{dateTime}, #{description}, #{reference}, #{createdSessionId} )")
+    void saveTransaction(Transaction transaction);
 }

@@ -10,7 +10,4 @@ public class ValidateTransaction {
         return transaction -> transaction.getAmount().compareTo(BigDecimal.ZERO) > 0;
     }
 
-    public static ValidationRule isCreditorAndDebtorDifferent() {
-        return transaction -> !transaction.getCreditorIBAN().equals(transaction.getDebtorIBAN());
-    }
 }

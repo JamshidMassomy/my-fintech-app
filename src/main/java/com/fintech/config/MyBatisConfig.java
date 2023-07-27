@@ -1,9 +1,11 @@
 package com.fintech.config;
 
+
+
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 @Configuration
-@EnableTransactionManagement
-public class MyBatisConfig {
-}
+@MapperScan("com.fintech.repository.mapper")
+public class MyBatisConfig { }

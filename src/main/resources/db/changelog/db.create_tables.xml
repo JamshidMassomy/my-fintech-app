@@ -6,25 +6,31 @@
 
     <changeSet id="1" author="jamshid">
         <sql>
-            CREATE TYPE currency AS ENUM ('USD', 'EURO', 'BGP');
-            CREATE TABLE accounts (
+            CREATE TABLE IF NOT EXISTS account (
               id SERIAL PRIMARY KEY,
               iban VARCHAR(50) UNIQUE NOT NULL,
               account_name VARCHAR(100) NOT NULL,
               balance NUMERIC(10, 2) NOT NULL,
-              currency currency NOT NULL
+              currency VARCHAR(3) NOT NULL
             );
-            CREATE TABLE transactions (
+            CREATE TABLE IF NOT EXISTS transactions (
               id SERIAL PRIMARY KEY,
               status VARCHAR(50) NOT NULL,
-              currency currency NOT NULL,
+              currency VARCHAR(3) NOT NULL,
               creditor_iban VARCHAR(50) NOT NULL,
               debtor_iban VARCHAR(50) NOT NULL,
               amount NUMERIC(10, 2) NOT NULL,
               date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
               description TEXT,
-              reference VARCHAR(50)
+              reference VARCHAR(50),
+              created_session_id VARCHAR(50) NOT NULL
             );
+
+            INSERT INTO account(iban, account_name, balance, currency)
+            VALUES
+                ('EE89370400440532013000', 'John Smith', 1000.50, 'EUR'),
+                ('EE29NWBK60161331926819', 'Jane Doe', 1500.75, 'EUR'),
+                ('EE1420041010050500013M02606', 'Robert Johnson', 2000.30, 'EUR');
         </sql>
     </changeSet>
 </databaseChangeLog>

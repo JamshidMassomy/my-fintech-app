@@ -1,16 +1,17 @@
 package com.fintech.repository.mapper;
 
 import com.fintech.domain.Account;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
+import org.apache.ibatis.annotations.*;
 import java.math.BigDecimal;
-import java.util.List;
+
 
 @Mapper
 public interface AccountMapper {
+
+    @Select("SELECT * FROM account WHERE IBAN = #{IBAN}")
     Account findByIBAN(@Param("IBAN") String IBAN);
+
+    @Update("UPDATE account SET balance = #{amount} WHERE IBAN = #{IBAN}")
     void updateAccount(@Param("IBAN") String IBAN, @Param("amount") BigDecimal amount);
-    BigDecimal fetchBalance(@Param("IBAN") String IBAN);
-    List<Account> areAccountsExist(@Param("IBANs") List<String> IBANs);
+
 }
