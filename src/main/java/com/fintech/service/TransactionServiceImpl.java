@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.fintech.util.Constants.*;
@@ -36,7 +35,7 @@ public class TransactionServiceImpl implements Transaction {
      */
     @Override
     @Transactional
-    public boolean processTransaction(final TransactionRequestDto transactionRequestDto, String sessionId) {
+    public synchronized boolean processTransaction(final TransactionRequestDto transactionRequestDto, String sessionId) {
         final String debtorIban = transactionRequestDto.getDebtorIBAN();
         final String creditorIBAN = transactionRequestDto.getCreditorIBAN();
         final Account debitorAccount = accountMapper.findByIBAN(debtorIban);
@@ -77,6 +76,8 @@ public class TransactionServiceImpl implements Transaction {
         if (debitorAccount == null || creditorAccount == null) {
             throw new AccountNotFoundException(NO_MATCHING_ACCOUNT);
         }
+
+
         final BigDecimal amount = transactionRequestDto.getAmount();
         final List<ValidationRule> validationRules = List.of(
                 isAmountGreaterThanZero()
@@ -104,20 +105,21 @@ public class TransactionServiceImpl implements Transaction {
     }
 
     public boolean isTransactionProcessed(final TransactionRequestDto transactionRequestDto, String uniqueSessionId) {
+        log.info("hello world test {} {}", transactionRequestDto, uniqueSessionId);
         return processTransaction(transactionRequestDto, uniqueSessionId);
     }
 
 
 
     @Transactional
-    public void deposit(final Account accountToUpdate, final BigDecimal amount) {
+    public synchronized void deposit(final Account accountToUpdate, final BigDecimal amount) {
         BigDecimal newBalance = accountToUpdate.getBalance().add(amount);
         log.info("depositing amount {} - {}", newBalance, accountToUpdate.getIBAN());
         accountMapper.updateAccount(accountToUpdate.getIBAN(), newBalance);
     }
 
     @Transactional
-    public void withDraw(final Account from, final BigDecimal amount) {
+    public synchronized void withDraw(final Account from, final BigDecimal amount) {
         BigDecimal newBalance = from.getBalance().subtract(amount);
         log.info("withdrawing amount {} - {}", newBalance, from.getIBAN());
         accountMapper.updateAccount(from.getIBAN(), newBalance);

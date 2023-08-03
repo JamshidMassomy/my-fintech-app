@@ -1,0 +1,1 @@
+xargs -I % -P 10 curl -X POST "http://localhost:8181/api/v1/transaction" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"amount\": 1, \"creditorIBAN\": \"EE29NWBK60161331926819\", \"currency\": \"EUR\", \"debtorIBAN\": \"EE1420041010050500013M02606\", \"description\": \"test\", \"reference\": \"test\"}" < <(printf '%s\n' {1..10})
